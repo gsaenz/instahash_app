@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html data-ng-app="app">
+
+  <head>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" type="text/css" />
+    <script data-require="angular.js@1.1.5" data-semver="1.1.5" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
+    <script data-require"angular.js@1.1.5" data-semver="1.1.5" src="http://rawgithub.com/Ciul/angular-facebook/master/lib/angular-facebook.js"></script>
+    <script src="main.ctrl.js"></script>
+  </head>
+
+  <body data-ng-controller="MainController">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          
+          <div class="page-header">
+            <h1>Welcome to Instahash!</h1>
+            <div class="row pull-right" style="margin-bottom:10px;" >
+               <button type="button" class="btn btn-danger" data-ng-show="logged" data-ng-disabled="!facebookReady" data-ng-click="logout()">Logout</button>
+            </div>
+          </div>
+          
+          <div>
+            <div class="alert alert-info" data-ng-show="salutation">Hello, {{user.name}}</div>
+            <div class="alert alert-warning" data-ng-show="byebye">Bye bye :'(</div>
+          </div>
+          
+          <button type="button" class="btn btn-primary btn-large" data-ng-show="!logged" data-ng-disabled="!facebookReady" data-ng-click="IntentLogin()">Login with Facebook</button>
+       
+         <div  ng-show="logged && !photos" >
+         	<h2>Select one of the following albums</h2>
+         	<div class="row previews">
+		        <div class="col-lg-4 col-sm-6" ng-repeat="(key, album) in albums.albums" >
+		            <div class="thumbnail">
+		                
+		                <div class="caption">
+		                    <h3>{{album.name}}</h3>
+		                    <p>A one page creative theme.</p>
+		                    <a ng-click="getImages(album.id)" class="btn btn-default">Go!</a>
+		                </div>
+		            </div>
+		        </div>
+        
+        
+   			 </div>
+         </div> 
+
+           <div  ng-show="logged && photos" >
+         	<h2>Select one of the following photos</h2>
+         	<form class="form-inline">
+      <input ng-model="query" type="text"
+        placeholder="Search" autofocus>
+    </form>
+    <br>
+         	<div class="row previews">
+		        <div class="col-lg-4 col-sm-6" ng-repeat="(key, photo) in photos.photos | filter:query" >
+
+		            <div class="thumbnail">
+		                
+		                <div class="caption">
+		                    <img ng-src="{{photo.picture}}" alt="Description" />
+		                    <p>{{photo.name}}</p>
+		                   <span ng-repeat="(i, tag) in photo.tags" ><a ng-click="search(tag)" >{{tag}}</a>&nbsp;</span>
+		                   <span ng-repeat="(i, tag) in photo.local_tags" id="{{tag}}_{{photo.id}}" ><a ng-click="search(tag)" >{{tag}}</a> <span ng-click="delete(photo.id, tag)" >x</span>&nbsp;</span>
+		                   <br>
+		                   <a ng-click="crear=1" >New tag</a>
+		                   <div ng-show="crear==1" >
+		                   		<form>
+		                   			<input type="text" ng-model="tagi.tag" />
+		                   			<input type="button" class="btn btn-small" value="Send" ng-click="create(photo.id)" />
+		                   		</form>
+		                   		
+		                   </div>
+		                </div>
+		            </div>
+		        </div>
+        
+        
+   			 </div>
+         </div> 
+          
+        </div>
+
+      
+          
+        </div>
+
+
+      </div>
+    </div>
+    
+  </body>
+
+</html>
