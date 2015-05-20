@@ -5,7 +5,7 @@
 	var user_id = '';
 
 	
-var app =angular.module('app', ['facebook']);
+var app =angular.module('app', ['facebook','angular-loading-bar']);
 	app.config(function($httpProvider){
 
     		delete $httpProvider.defaults.headers.common['X-Requested-With'];
